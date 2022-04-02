@@ -1,0 +1,22 @@
+syntax = "proto3";
+
+option java_package = "com.learn.java.protoc";
+option java_outer_classname = "TargetTransportData";
+option java_multiple_files = true;
+
+message TargetAlarmData {
+  bool alarm_status = 1;
+  string alarm_type = 2;
+  string alarm_value = 3;
+}
+
+message TargetData {
+  string target_code = 1;
+  string target_type = 2;
+  string target_value = 3;
+  TargetAlarmData alarm_data = 4;
+}
+
+message TargetWrapperData {
+  repeated TargetData targetDatas = 1;
+}
