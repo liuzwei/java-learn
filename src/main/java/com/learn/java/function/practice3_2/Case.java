@@ -1,6 +1,5 @@
 package com.learn.java.function.practice3_2;
 
-import ch.qos.logback.classic.util.LogbackMDCAdapter;
 import com.learn.java.function.validateemail.Result;
 import com.learn.java.tuple.Tuple;
 

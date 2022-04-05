@@ -22,15 +22,17 @@ public class EmailValidation {
 //                                    Result.failure("email "+ s +" is invalid! ");
 
     static Function<String, Result<String>> emailCheckers = s -> Case.match(
-            Case.mcase(()-> success(s)),
-            Case.mcase(()-> s == null , () -> failure("email must not be null")),
-            Case.mcase(() -> s.length()==0 , () -> failure(""))
+            Case.mcase(()-> Result.success(s)),
+            Case.mcase(()-> s == null , ()->Result.failure("email must not be null")),
+            Case.mcase(() -> s.length()==0 , ()->Result.failure("email must not be empty")),
+            Case.mcase(() -> !emailPattern.matcher(s).matches(), () -> Result.failure("email "+s+" is invalid"))
     );
 
 
     public static void main(String[] args) {
         emailCheckers.apply(null).bind(success, failure);
         emailCheckers.apply("").bind(success, failure);
+        emailCheckers.apply("zhaowei#com.cn.email").bind(success, failure);
         emailCheckers.apply("zhaowei@github.com").bind(success, failure);
     }
 
