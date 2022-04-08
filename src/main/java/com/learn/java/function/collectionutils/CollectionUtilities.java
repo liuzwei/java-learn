@@ -1,9 +1,11 @@
 package com.learn.java.function.collectionutils;
 
 import com.learn.java.function.Function;
+import com.learn.java.function.validateemail.Effect;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 
@@ -137,7 +139,29 @@ public class CollectionUtilities<T, U> {
         return foldLeft(list, list(), x -> y -> prepend(y, x));
     }
 
+    public static <T> void forEach(Collection<T> list, Effect<T> effect) {
+        for (T t : list) {
+            effect.apply(t);
+        }
+    }
 
+    /**
+     * 生成List
+     * @param seed
+     * @param f
+     * @param check
+     * @param <T>
+     * @return
+     */
+    public static <T> List<T> unfold(T seed, Function<T, T> f, Function<T, Boolean> check) {
+        List<T> result = new ArrayList<>();
+        T temp = seed;
+        while (check.apply(temp)){
+            result = append(result, temp);
+            temp = f.apply(temp);
+        }
+        return result;
+    }
 
 
 }

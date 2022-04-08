@@ -54,5 +54,13 @@ public class CollectionTest {
         // 列表前追加元素
         List<Integer> prepend = CollectionUtilities.prepend(100, list);
         log.info("list prepend:{}",prepend);
+
+        // 生成List  1....5
+        List<Integer> unfold = range(1,6);
+        log.info("unfold list:{}", unfold);
+    }
+
+    public static List<Integer> range(int start, int end) {
+        return CollectionUtilities.unfold(start, x -> ++x, x -> x < end);
     }
 }
