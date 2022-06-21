@@ -19,8 +19,6 @@ public class LeetCode230 {
 
     public int kthSmallest2(TreeNode root, int k) {
         Deque<TreeNode> deque = new LinkedList<>();
-        int result = 0;
-        int r = 0;
         while (root != null || !deque.isEmpty()) {
             // 先遍历左子树，直到左子树为空
             while (root != null) {
@@ -28,18 +26,13 @@ public class LeetCode230 {
                 root = root.left;
             }
             root = deque.pop();
-            if (k == ++r) {
-                result = root.val;
+            k--;
+            if (k == 0) {
                 break;
             }
-            if (root.right != null) {
-                root = root.right;
-            }else {
-                root = null;
-            }
+            root = root.right;
         }
-
-        return result;
+        return root.val;
     }
 
 
