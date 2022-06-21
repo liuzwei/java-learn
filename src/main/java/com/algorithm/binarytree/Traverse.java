@@ -18,7 +18,7 @@ import java.util.List;
 public class Traverse {
 
     /**
-     * 迭代遍历
+     * 迭代遍历- 后序
      * @param root
      * @return
      */
@@ -70,6 +70,49 @@ public class Traverse {
         }
         list.add(root.val);
         return list;
+    }
+
+
+    /**
+     * 迭代遍历-中序
+     * @param root
+     * @return
+     */
+    public List<Integer> centerIterateTraversal(TreeNode root) {
+
+        // 存放结果集
+        List<Integer> result = new ArrayList<>();
+        if (root == null) {
+            return result;
+        }
+        Deque<TreeNode> deque = new LinkedList<>();
+
+        while (root != null || !deque.isEmpty()) {
+            // 先遍历左子树，直到左子树为空
+            while (root != null) {
+                deque.push(root);
+                root = root.left;
+            }
+            root = deque.pop();
+            result.add(root.val);
+            if (root.right != null) {
+                root = root.right;
+            }else {
+                root = null;
+            }
+        }
+
+        return result;
+    }
+
+    public static void main(String[] args) {
+        int[] ary = new int[]{5,3,6,2,4,1};
+        TreeNode treeNode = TreeNode.generateTreeNode(ary);
+        // 中序遍历
+        List<Integer> list = new Traverse().centerIterateTraversal(treeNode);
+        for (Integer i : list) {
+            System.out.print(i + " ");
+        }
     }
 
 }
