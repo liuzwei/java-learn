@@ -13,7 +13,7 @@ public class LeetCode414 {
      * 第三大的数
      * 思路：
      * 1. 排序
-     * 2. 取第三大的数
+     * 2. 取第三大的数，两两比较，只要有找到两个不一样的，即说明存在第三大的值
      * @param nums
      * @return
      */
@@ -26,8 +26,8 @@ public class LeetCode414 {
             if (nums[i]!=nums[i-1]) {
                 index++;
             }
-            if (index == 3) {
-                return nums[i];
+            if (index == 2) {
+                return nums[i-1];
             }
         }
         return nums[nums.length-1];
