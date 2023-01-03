@@ -28,7 +28,9 @@ public class LockUpgrade {
         // 默认4秒后启用偏向锁
         Thread.sleep(5000);
         lock = new Object();
-        System.out.println("可偏向  biasable " + ClassLayout.parseInstance(lock).toPrintable());
+        System.out.println("可偏向 hash前 biasable " + ClassLayout.parseInstance(lock).toPrintable());
+//        System.out.println("hash_code 1: "+lock.hashCode());
+        System.out.println("可偏向 hash后 biasable " + ClassLayout.parseInstance(lock).toPrintable());
         /**
          * OFF  SZ   TYPE DESCRIPTION               VALUE
          *   0   8        (object header: mark)     0x0000000000000005 (biasable; age: 0)
@@ -37,6 +39,7 @@ public class LockUpgrade {
          */
         synchronized (lock) {
             System.out.println("持有  biased " + ClassLayout.parseInstance(lock).toPrintable());
+//            System.out.println("hash_code 2: "+lock.hashCode());
         }
         /**
          * OFF  SZ   TYPE DESCRIPTION               VALUE
@@ -60,6 +63,7 @@ public class LockUpgrade {
         Thread thread1 = new Thread(() -> {
             synchronized (finalLock) {
                 System.out.println("thread1 轻量级锁 " + ClassLayout.parseInstance(finalLock).toPrintable());
+//                System.out.println("hash_code 3: "+finalLock.hashCode());
             }
             /**
              * OFF  SZ   TYPE DESCRIPTION               VALUE
@@ -100,6 +104,7 @@ public class LockUpgrade {
                  *   8   4        (object header: class)    0xf80001e5
                  *  12   4        (object alignment gap)
                  */
+//                System.out.println("hash_code 4: "+finalLock.hashCode());
             }
         });
         thread2.start();
@@ -115,5 +120,7 @@ public class LockUpgrade {
          */
 
         System.out.println("不可偏向 "+ ClassLayout.parseInstance(finalLock).toPrintable());
+
+//        System.out.println("hash_code 5: "+finalLock.hashCode());
     }
 }
