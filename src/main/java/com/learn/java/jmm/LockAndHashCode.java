@@ -8,7 +8,9 @@ import org.openjdk.jol.info.ClassLayout;
 public class LockAndHashCode {
 
     public static void main(String[] args) throws Exception{
-
+        /**
+         * 未计算hashCode，可以进入偏向锁状态，也就是说，当一个对象计算过hashCode，则无法进入偏向锁状态！！！
+         */
 //        noHasCodeLock();
         /**
          * 在同步代码块前调用hashCode，偏向锁升级为轻量级锁
